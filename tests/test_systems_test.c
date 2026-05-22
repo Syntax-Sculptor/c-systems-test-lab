@@ -182,6 +182,32 @@ void test_is_valid_width(void) {
     TEST_ASSERT_FALSE(is_valid_width(33));
 }
 
+void test_get_u_max(void) {
+    uint32_t res = 0;
+
+    TEST_ASSERT_TRUE(get_u_max(1, &res));
+    TEST_ASSERT_EQUAL_INT32(1, res);
+
+    TEST_ASSERT_TRUE(get_u_max(2, &res));
+    TEST_ASSERT_EQUAL_INT32(3, res);
+
+    TEST_ASSERT_TRUE(get_u_max(4, &res));
+    TEST_ASSERT_EQUAL_INT32(15, res);
+
+    TEST_ASSERT_TRUE(get_u_max(8, &res));
+    TEST_ASSERT_EQUAL_INT32(255, res);
+
+    TEST_ASSERT_TRUE(get_u_max(31, &res));
+    TEST_ASSERT_EQUAL_INT32(1073741823, res);
+
+    TEST_ASSERT_TRUE(get_u_max(32, &res));
+    TEST_ASSERT_EQUAL_INT32(INT32_MAX, res);
+
+    TEST_ASSERT_FALSE(get_u_max(0, &res));
+    TEST_ASSERT_FALSE(get_u_max(33, &res));
+    TEST_ASSERT_FALSE(get_u_max(4, NULL));
+}
+
 int main() {
     UNITY_BEGIN();
     RUN_TEST(test_is_binary_str);
@@ -191,6 +217,7 @@ int main() {
     RUN_TEST(test_is_valid_width);
     RUN_TEST(test_get_t_min);
     RUN_TEST(test_get_t_max);
+    RUN_TEST(test_get_u_max);
     
     return UNITY_END();
 }

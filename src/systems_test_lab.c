@@ -125,3 +125,8 @@ int get_t_max(size_t width, int32_t* val) {
 
     return 1;
 }
+
+int get_u_max(size_t width, uint32_t* val) {
+    // TODO: Implement me!
+    return 0;
+}

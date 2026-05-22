@@ -60,6 +60,15 @@ int get_t_min(size_t width, int32_t* val);
 int get_t_max(size_t width, int32_t* val);
 
 /**
+ * Writes the maximum unsigned value using the given width to the provided `val`.
+ * 
+ * This function will only work if the width is between 1 and 32.
+ * 
+ * Returns whether the value was successfully written to.
+ */
+int get_u_max(size_t width, uint32_t* val);
+
+/**
  * Returns whether the provided width is between 1 and 32. 
  */
 int is_valid_width(size_t width);
