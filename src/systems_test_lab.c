@@ -113,7 +113,15 @@ int get_t_min(size_t width, int32_t* val) {
     return 1;
 }
 
-int get_t_max(size_t width, int32_t* val) {
-    // TODO: Implement me!
-    return 0;
+int get_t_max(size_t width, int32_t* val) {  
+    if (!is_valid_width(width) || val == NULL) {
+        return 0;
+    }
+
+    // Temporarily cast to 64-bit to prevent overflow when shifting.
+    int64_t temp_val = ((uint64_t) 1U << (width - 1));
+    int32_t final_val = (int32_t) (temp_val - 1);
+    *val = final_val;
+
+    return 1;
 }
