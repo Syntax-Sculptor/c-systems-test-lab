@@ -65,7 +65,33 @@ int get_unsigned_value(const char *bin_str, uint32_t* val) {
 }
 
 int get_signed_value(const char *bin_str, int32_t* val) {
-    // TODO: Implement me!
-    return 0;
+    if (bin_str == NULL || val == NULL || !is_binary_str(bin_str)) {
+        return 0;
+    }
 
+    uint32_t uval;
+    size_t width = get_bit_width(bin_str);
+
+    if (width > 32 || !get_unsigned_value(bin_str, &uval)) {
+        return 0;
+    }
+
+    char signbit = bin_str[0];
+
+    if (signbit == '0') {
+        *val = (int32_t) uval;
+        return 1;
+    }
+
+    if (width == 32) {
+        // If the width is at its maximum value, shifting it by 32 can cause
+        // undefined behavior.
+        *val = (int32_t) uval;
+    } else {
+        uint32_t mask = UINT32_MAX << width;
+        uint32_t res = mask | uval;
+        *val = (int32_t) res;
+    }
+
+    return 1;
 }
