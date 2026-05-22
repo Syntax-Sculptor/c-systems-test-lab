@@ -50,4 +50,8 @@ int get_signed_value(const char *bin_str, int32_t* val);
  */
 int get_t_min(size_t width, int32_t* val);
 
+/**
+ * Returns whether the provided width is between 1 - 32. 
+ */
+int is_valid_width(size_t width);
 #endif

@@ -146,12 +146,23 @@ void test_get_t_min(void) {
     TEST_ASSERT_FALSE(get_t_min(4, NULL));
 }
 
+void test_is_valid_width(void) {
+    TEST_ASSERT_TRUE(is_valid_width(1));
+    TEST_ASSERT_TRUE(is_valid_width(10));
+    TEST_ASSERT_TRUE(is_valid_width(32));
+
+    TEST_ASSERT_FALSE(is_valid_width(-5));
+    TEST_ASSERT_FALSE(is_valid_width(0));
+    TEST_ASSERT_FALSE(is_valid_width(33));
+}
+
 int main() {
     UNITY_BEGIN();
     RUN_TEST(test_is_binary_str);
     RUN_TEST(test_get_bit_width);
     RUN_TEST(test_get_unsigned_val);
     RUN_TEST(test_get_signed_value);
+    RUN_TEST(test_is_valid_width);
     RUN_TEST(test_get_t_min);
     
     return UNITY_END();

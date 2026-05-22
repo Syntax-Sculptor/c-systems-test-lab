@@ -43,7 +43,7 @@ int get_unsigned_value(const char *bin_str, uint32_t* val) {
     if (
         bin_str == NULL || 
         !is_binary_str(bin_str) || 
-        bit_width > 32 || 
+        !is_valid_width(bit_width) || 
         val == NULL
     ) {
         return 0;
@@ -72,7 +72,7 @@ int get_signed_value(const char *bin_str, int32_t* val) {
     uint32_t uval;
     size_t width = get_bit_width(bin_str);
 
-    if (width > 32 || !get_unsigned_value(bin_str, &uval)) {
+    if (!is_valid_width(width) || !get_unsigned_value(bin_str, &uval)) {
         return 0;
     }
 
@@ -94,6 +94,10 @@ int get_signed_value(const char *bin_str, int32_t* val) {
     }
 
     return 1;
+}
+
+int is_valid_width(size_t width) {
+    return width >= 1 && width <= 32;
 }
 
 int get_t_min(size_t width, int32_t* val) {
