@@ -29,9 +29,12 @@ int main(int argc, char* argv[]) {
     uint32_t unsigned_val;
     get_unsigned_value(bin_str, &unsigned_val);
 
+    int32_t signed_val;
+    get_signed_value(bin_str, &signed_val);
+
     printf("Bits:       %s\n", bin_str);
     printf("Width:      %zu\n", get_bit_width(bin_str));
     printf("Unsigned:   %u\n", unsigned_val);
-
+    printf("Signed:     %d\n", signed_val);
     return EXIT_SUCCESS;
 }
