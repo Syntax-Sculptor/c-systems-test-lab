@@ -36,3 +36,30 @@ size_t get_bit_width(const char* bin_str) {
 
     return strlen(bin_str);
 }
+
+int get_unsigned_value(const char *bin_str, uint32_t* val) {
+    size_t bit_width = get_bit_width(bin_str);
+
+    if (
+        bin_str == NULL || 
+        !is_binary_str(bin_str) || 
+        bit_width > 32 || 
+        val == NULL
+    ) {
+        return 0;
+    }
+
+    uint32_t final_val = 0;
+
+    for (size_t i = 0; i < bit_width; i++) {
+        char bit = bin_str[i];
+
+        if (bit == '1') {
+            final_val |= (1U << (bit_width - i - 1));
+        }
+    }
+
+    *val = final_val;
+
+    return 1;
+}

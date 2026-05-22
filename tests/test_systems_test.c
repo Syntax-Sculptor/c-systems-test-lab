@@ -39,10 +39,49 @@ void test_get_bit_width(void) {
     TEST_ASSERT_EQUAL_size_t(0, get_bit_width(NULL));
 }
 
+void test_get_unsigned_val(void) {
+    uint32_t res = 0;
+
+    TEST_ASSERT_TRUE(get_unsigned_value("0", &res));
+    TEST_ASSERT_EQUAL_UINT32(0, res);
+
+    TEST_ASSERT_TRUE(get_unsigned_value("1", &res));
+    TEST_ASSERT_EQUAL_UINT32(1, res);
+
+    TEST_ASSERT_TRUE(get_unsigned_value("10", &res));
+    TEST_ASSERT_EQUAL_UINT32(2, res);
+
+    TEST_ASSERT_TRUE(get_unsigned_value("11", &res));
+    TEST_ASSERT_EQUAL_UINT32(3, res);
+
+    TEST_ASSERT_TRUE(get_unsigned_value("0110", &res));
+    TEST_ASSERT_EQUAL_UINT32(6, res);
+
+    TEST_ASSERT_TRUE(get_unsigned_value("1111", &res));
+    TEST_ASSERT_EQUAL_UINT32(15, res);
+    TEST_ASSERT_TRUE(get_unsigned_value("1111", &res));
+    TEST_ASSERT_EQUAL_UINT32(15, res);
+
+    TEST_ASSERT_TRUE(get_unsigned_value("11111111111111111111111111111111", &res));
+    TEST_ASSERT_EQUAL_UINT32(UINT32_MAX, res);
+
+    // Width is over 32 bits which isn't allowed.
+    TEST_ASSERT_FALSE(
+        get_unsigned_value("111111111111111111111111111111110", &res)
+    );
+
+    TEST_ASSERT_FALSE(get_unsigned_value("", &res));
+    TEST_ASSERT_FALSE(get_unsigned_value("102", &res));
+    TEST_ASSERT_FALSE(get_unsigned_value("10a", &res));
+    TEST_ASSERT_FALSE(get_unsigned_value(NULL, &res));
+    TEST_ASSERT_FALSE(get_unsigned_value("100", NULL));
+}
+
 int main() {
     UNITY_BEGIN();
     RUN_TEST(test_is_binary_str);
     RUN_TEST(test_get_bit_width);
+    RUN_TEST(test_get_unsigned_val);
     
     return UNITY_END();
 }

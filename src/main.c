@@ -26,8 +26,12 @@ int main(int argc, char* argv[]) {
 
     // Reporting
 
+    uint32_t unsigned_val;
+    get_unsigned_value(bin_str, &unsigned_val);
+
     printf("Bits:       %s\n", bin_str);
     printf("Width:      %zu\n", get_bit_width(bin_str));
+    printf("Unsigned:   %u\n", unsigned_val);
 
     return EXIT_SUCCESS;
 }
