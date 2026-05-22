@@ -27,6 +27,7 @@ int main(int argc, char* argv[]) {
     // Reporting
 
     printf("Bits:       %s\n", bin_str);
+    printf("Width:      %zu\n", get_bit_width(bin_str));
 
     return EXIT_SUCCESS;
 }

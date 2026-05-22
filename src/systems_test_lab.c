@@ -28,3 +28,11 @@ int is_binary_str(const char* bin_str) {
 
     return 1;
 }
+
+size_t get_bit_width(const char* bin_str) {
+    if (bin_str == NULL || !is_binary_str(bin_str)) {
+        return 0;
+    }
+
+    return strlen(bin_str);
+}
