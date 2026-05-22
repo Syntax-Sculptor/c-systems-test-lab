@@ -127,6 +127,13 @@ int get_t_max(size_t width, int32_t* val) {
 }
 
 int get_u_max(size_t width, uint32_t* val) {
-    // TODO: Implement me!
-    return 0;
+    if (!is_valid_width(width) || val == NULL) {
+        return 0;
+    }
+    
+    uint64_t temp_val = ((uint64_t) 1U << (width));
+    uint32_t final_val = (int32_t) (temp_val - 1);
+    *val = final_val;
+
+    return 1;
 }

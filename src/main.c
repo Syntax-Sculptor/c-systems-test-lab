@@ -45,11 +45,16 @@ int main(int argc, char* argv[]) {
     int32_t t_min;
     get_t_min(width, &t_min);
 
+    uint32_t u_max;
+    get_u_max(width, &u_max);
+
     printf("Bits:       %s\n", bin_str);
     printf("Width:      %zu\n", width);
     printf("Unsigned:   %u\n", unsigned_val);
     printf("Signed:     %d\n", signed_val);
     printf("TMin:       %d\n", t_min);
     printf("TMax:       %d\n", t_max);
+    printf("UMax:       %u\n", u_max);
+
     return EXIT_SUCCESS;
 }
