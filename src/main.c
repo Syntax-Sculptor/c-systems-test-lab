@@ -24,6 +24,13 @@ int main(int argc, char* argv[]) {
         return EXIT_FAILURE;
     }
 
+    size_t width = get_bit_width(bin_str);
+
+    if (!is_valid_width(width)) {
+        printf("Please enter a binary string between 1 and 32 bits.\n");
+        return EXIT_FAILURE;
+    }
+
     // Reporting
 
     uint32_t unsigned_val;
@@ -32,9 +39,17 @@ int main(int argc, char* argv[]) {
     int32_t signed_val;
     get_signed_value(bin_str, &signed_val);
 
+    int32_t t_max;
+    get_t_max(width, &t_max);
+
+    int32_t t_min;
+    get_t_min(width, &t_min);
+
     printf("Bits:       %s\n", bin_str);
-    printf("Width:      %zu\n", get_bit_width(bin_str));
+    printf("Width:      %zu\n", width);
     printf("Unsigned:   %u\n", unsigned_val);
     printf("Signed:     %d\n", signed_val);
+    printf("TMin:       %d\n", t_min);
+    printf("TMax:       %d\n", t_max);
     return EXIT_SUCCESS;
 }
