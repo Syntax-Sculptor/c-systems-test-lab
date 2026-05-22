@@ -41,4 +41,13 @@ int get_unsigned_value(const char *bin_str, uint32_t* val);
  */
 int get_signed_value(const char *bin_str, int32_t* val);
 
+/**
+ * Writes the minimum signed value using the given width to the provided `val`.
+ * 
+ * This function will only work for binary strings with a width between 1 and 32.
+ * 
+ * Returns whether the value was successfully written to.
+ */
+int get_t_min(size_t width, int32_t* val);
+
 #endif

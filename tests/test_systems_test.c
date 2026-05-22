@@ -117,12 +117,42 @@ void test_get_signed_value(void) {
     TEST_ASSERT_FALSE(get_signed_value("100", NULL));
 }
 
+void test_get_t_min(void) {
+    int32_t res = 0;
+
+    TEST_ASSERT_TRUE(get_t_min(1, &res));
+    TEST_ASSERT_EQUAL_INT32(-1, res);
+
+    TEST_ASSERT_TRUE(get_t_min(2, &res));
+    TEST_ASSERT_EQUAL_INT32(-2, res);
+
+    TEST_ASSERT_TRUE(get_t_min(4, &res));
+    TEST_ASSERT_EQUAL_INT32(-8, res);
+
+    TEST_ASSERT_TRUE(get_t_min(8, &res));
+    TEST_ASSERT_EQUAL_INT32(-128, res);
+
+    TEST_ASSERT_TRUE(get_t_min(16, &res));
+    TEST_ASSERT_EQUAL_INT32(-32768, res);
+
+    TEST_ASSERT_TRUE(get_t_min(31, &res));
+    TEST_ASSERT_EQUAL_INT32(-1073741824, res);
+
+    TEST_ASSERT_TRUE(get_t_min(32, &res));
+    TEST_ASSERT_EQUAL_INT32(INT32_MIN, res);
+
+    TEST_ASSERT_FALSE(get_t_min(0, &res));
+    TEST_ASSERT_FALSE(get_t_min(33, &res));
+    TEST_ASSERT_FALSE(get_t_min(4, NULL));
+}
+
 int main() {
     UNITY_BEGIN();
     RUN_TEST(test_is_binary_str);
     RUN_TEST(test_get_bit_width);
     RUN_TEST(test_get_unsigned_val);
     RUN_TEST(test_get_signed_value);
+    RUN_TEST(test_get_t_min);
     
     return UNITY_END();
 }

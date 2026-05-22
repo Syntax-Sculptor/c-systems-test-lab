@@ -95,3 +95,7 @@ int get_signed_value(const char *bin_str, int32_t* val) {
 
     return 1;
 }
+
+int get_t_min(size_t width, int32_t* val) {
+    return 0;
+}
