@@ -16,7 +16,7 @@ int is_binary_str(const char* bin_str) {
         return 0;
     }
 
-    for (int i = 0; i < len; i++) {
+    for (size_t i = 0; i < len; i++) {
         if (bin_str[i] != '1' && bin_str[i] != '0') {
             return 0;
         }
