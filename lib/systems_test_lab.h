@@ -31,4 +31,14 @@ size_t get_bit_width(const char* str);
  */
 int get_unsigned_value(const char *bin_str, uint32_t* val);
 
+/**
+ * Converts the provided binary string into an signed 32-bit integer and writes it
+ * to the provided `val`.
+ * 
+ * This function will only work for binary strings with a width between 1 and 32.
+ * 
+ * Returns whether the value was successfully written to.
+ */
+int get_signed_value(const char *bin_str, int32_t* val);
+
 #endif

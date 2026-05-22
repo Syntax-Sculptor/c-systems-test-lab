@@ -77,11 +77,52 @@ void test_get_unsigned_val(void) {
     TEST_ASSERT_FALSE(get_unsigned_value("100", NULL));
 }
 
+void test_get_signed_value(void) {
+    int32_t res = 0;
+
+    TEST_ASSERT_TRUE(get_signed_value("0", &res));
+    TEST_ASSERT_EQUAL_INT32(0, res);
+
+    TEST_ASSERT_TRUE(get_signed_value("1", &res));
+    TEST_ASSERT_EQUAL_INT32(-1, res);
+
+    TEST_ASSERT_TRUE(get_signed_value("01", &res));
+    TEST_ASSERT_EQUAL_INT32(1, res);
+
+    TEST_ASSERT_TRUE(get_signed_value("10", &res));
+    TEST_ASSERT_EQUAL_INT32(-2, res);
+
+    TEST_ASSERT_TRUE(get_signed_value("11", &res));
+    TEST_ASSERT_EQUAL_INT32(-1, res);
+
+    TEST_ASSERT_TRUE(get_signed_value("10000000", &res));
+    TEST_ASSERT_EQUAL_INT32(-128, res);
+
+    TEST_ASSERT_TRUE(get_signed_value("11111111", &res));
+    TEST_ASSERT_EQUAL_INT32(-1, res);
+
+    TEST_ASSERT_TRUE(get_signed_value("11111111111111111111111111111111", &res));
+    TEST_ASSERT_EQUAL_INT32(-1, res);
+
+    TEST_ASSERT_TRUE(get_signed_value("01111111111111111111111111111111", &res));
+    TEST_ASSERT_EQUAL_INT32(2147483647, res);
+
+    TEST_ASSERT_TRUE(get_signed_value("10000000000000000000000000000000", &res));
+    TEST_ASSERT_EQUAL_INT32(-2147483648, res);
+
+    TEST_ASSERT_FALSE(get_signed_value("", &res));
+    TEST_ASSERT_FALSE(get_signed_value("102", &res));
+    TEST_ASSERT_FALSE(get_signed_value("10a", &res));
+    TEST_ASSERT_FALSE(get_signed_value(NULL, &res));
+    TEST_ASSERT_FALSE(get_signed_value("100", NULL));
+}
+
 int main() {
     UNITY_BEGIN();
     RUN_TEST(test_is_binary_str);
     RUN_TEST(test_get_bit_width);
     RUN_TEST(test_get_unsigned_val);
+    RUN_TEST(test_get_signed_value);
     
     return UNITY_END();
 }

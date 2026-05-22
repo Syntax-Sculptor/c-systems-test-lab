@@ -63,3 +63,9 @@ int get_unsigned_value(const char *bin_str, uint32_t* val) {
 
     return 1;
 }
+
+int get_signed_value(const char *bin_str, int32_t* val) {
+    // TODO: Implement me!
+    return 0;
+
+}
