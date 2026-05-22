@@ -112,3 +112,8 @@ int get_t_min(size_t width, int32_t* val) {
 
     return 1;
 }
+
+int get_t_max(size_t width, int32_t* val) {
+    // TODO: Implement me!
+    return 0;
+}
