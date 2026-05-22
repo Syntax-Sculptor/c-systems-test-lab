@@ -9,25 +9,7 @@
 #include <stdint.h>
 #include <string.h>
 
-int is_binary_str(const char* bin_str) {
-    if (bin_str == NULL) {
-        return 0;
-    }
-
-    size_t len = strlen(bin_str);
-
-    if (len == 0) {
-        return 0;
-    }
-
-    for (size_t i = 0; i < len; i++) {
-        if (bin_str[i] != '1' && bin_str[i] != '0') {
-            return 0;
-        }
-    }
-
-    return 1;
-}
+#include "systems_test_lab.h"
 
 int main(int argc, char* argv[]) {
     if (argc != 2) {
