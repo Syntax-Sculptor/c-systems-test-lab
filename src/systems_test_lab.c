@@ -100,6 +100,15 @@ int is_valid_width(size_t width) {
     return width >= 1 && width <= 32;
 }
 
-int get_t_min(size_t width, int32_t* val) {
-    return 0;
+int get_t_min(size_t width, int32_t* val) {  
+    if (!is_valid_width(width) || val == NULL) {
+        return 0;
+    }
+
+    // Temporarily cast to 64-bit to prevent overflow when shifting.
+    int64_t temp_val = ((uint64_t) 1U << (width - 1));
+    int32_t final_val = (int32_t) (-temp_val);
+    *val = final_val;
+
+    return 1;
 }
