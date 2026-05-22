@@ -10,6 +10,10 @@
 #include <string.h>
 
 int is_binary_str(const char* bin_str) {
+    if (bin_str == NULL) {
+        return 0;
+    }
+
     size_t len = strlen(bin_str);
 
     if (len == 0) {
@@ -37,6 +41,10 @@ int main(int argc, char* argv[]) {
         printf("Please enter a valid binary string.\n");
         return EXIT_FAILURE;
     }
+
+    // Reporting
+
+    printf("Bits:       %s\n", bin_str);
 
     return EXIT_SUCCESS;
 }
