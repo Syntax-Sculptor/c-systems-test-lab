@@ -1,5 +1,5 @@
 INCLUDES := -I lib/ -I ext/unity
-CFLAGS   := -Wall -Wextra -std=c2x
+CFLAGS   := -Wall -Wextra -std=c11
 CC		 := gcc
 SRC		 := src/main.c src/systems_test_lab.c 
 OUT		 := build/systems_test_lab
