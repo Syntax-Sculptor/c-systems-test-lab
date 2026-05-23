@@ -1,6 +1,18 @@
 # C Systems Test Lab
 
-This repository is a personal lab for exploring how C interprets integers at a low level. This includes binary representation, unsigned interpretation, two's-complement (to be implemented), and edge cases with how C may represent some values.
+This repository is a personal lab for exploring how C interprets integers at a low level. This includes binary representation, unsigned interpretation, two's-complement, and edge cases with how C may represent some values.
+
+## Current Features
+
+So far, this repository offers:
+- Validating a binary string in the CLI (which is then validated). The CLI will report:
+    - Its width
+    - Its unsigned representation
+    - Its signed representation (calculated using two's complement)
+    - The minimum signed value of its width
+    - The maximum signed value of its width
+    - The maximum unsigned value of its width
+- Unit tests
 
 ## How to Build
 
@@ -28,13 +40,20 @@ If you wish to run the unit tests, then run `make test`, which will test the pro
 
 ## Usage
 
-The program only takes one argument, that being a binary string:
+The program only takes one argument, that being a binary string that is between 1 and 32 bits:
 
 ```
 ./build/systems_test_lab 1010
+Bits:       1010
+Width:      4
+Unsigned:   10
+Signed:     -6
+TMin:       -8
+TMax:       7
+UMax:       15
 ```
 
-The program will only accept binary strings, any other input will be rejected.
+The program will only accept binary strings of a valid width, any other input will be rejected.
 
 ## Contribution Guidelines
 
