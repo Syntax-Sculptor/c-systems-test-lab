@@ -72,4 +72,19 @@ int get_u_max(size_t width, uint32_t* val);
  * Returns whether the provided width is between 1 and 32. 
  */
 int is_valid_width(size_t width);
+
+/**
+ * Writes the 32-bit unsigned extension from the given binary string as an integer.
+ * 
+ * Returns whether the result was written to.
+ */
+int get_zero_extended_32(char* bin_str, uint32_t* res);
+
+/**
+ * Writes the 32-bit signed extension from the given binary string as an integer.
+ * 
+ * Returns whether the result was written to.
+ */
+int get_sign_extended_32(char* bin_str, int32_t* res);
+
 #endif

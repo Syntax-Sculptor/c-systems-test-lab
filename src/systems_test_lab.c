@@ -137,3 +137,11 @@ int get_u_max(size_t width, uint32_t* val) {
 
     return 1;
 }
+
+int get_zero_extended_32(char* bin_str, uint32_t* res) {
+    return 0;
+}
+
+int get_sign_extended_32(char* bin_str, int32_t* res) {
+    return 0;
+}

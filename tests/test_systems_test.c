@@ -182,6 +182,67 @@ void test_is_valid_width(void) {
     TEST_ASSERT_FALSE(is_valid_width(33));
 }
 
+void test_get_zero_extended_32(void) {
+    uint32_t res = 0;
+
+    TEST_ASSERT_TRUE(get_zero_extended_32("0", &res));
+    TEST_ASSERT_EQUAL_UINT32(0x00000000, res);
+
+    TEST_ASSERT_TRUE(get_zero_extended_32("1", &res));
+    TEST_ASSERT_EQUAL_UINT32(0x00000001, res);
+
+    TEST_ASSERT_TRUE(get_zero_extended_32("1111", &res));
+    TEST_ASSERT_EQUAL_UINT32(0x0000000F, res);
+
+    TEST_ASSERT_TRUE(get_zero_extended_32("1000", &res));
+    TEST_ASSERT_EQUAL_UINT32(0x00000008, res);
+
+    TEST_ASSERT_TRUE(get_zero_extended_32("10101010", &res));
+    TEST_ASSERT_EQUAL_UINT32(0x000000AA, res);
+
+    TEST_ASSERT_FALSE(get_zero_extended_32("", &res));
+    TEST_ASSERT_FALSE(get_zero_extended_32(NULL, &res));
+    TEST_ASSERT_FALSE(get_zero_extended_32("102", &res));
+    TEST_ASSERT_FALSE(get_zero_extended_32("1", NULL));
+    
+    // 32-bits
+    TEST_ASSERT_FALSE(
+        get_zero_extended_32("111111111111111111111111111111111", &res)
+    );
+}
+
+void test_get_sign_extended_32(void) {
+    int32_t res = 0;
+
+    TEST_ASSERT_TRUE(get_sign_extended_32("0", &res));
+    TEST_ASSERT_EQUAL_INT32(0x00000000, res);
+
+    TEST_ASSERT_TRUE(get_sign_extended_32("1", &res));
+    TEST_ASSERT_EQUAL_INT32(0xFFFFFFFF, res);
+
+    TEST_ASSERT_TRUE(get_sign_extended_32("01", &res));
+    TEST_ASSERT_EQUAL_INT32(0x00000001, res);
+
+    TEST_ASSERT_TRUE(get_sign_extended_32("10", &res));
+    TEST_ASSERT_EQUAL_INT32(0xFFFFFFFE, res);
+
+    TEST_ASSERT_TRUE(get_sign_extended_32("1111", &res));
+    TEST_ASSERT_EQUAL_INT32(0xFFFFFFFF, res);
+
+    TEST_ASSERT_TRUE(get_sign_extended_32("10000000", &res));
+    TEST_ASSERT_EQUAL_INT32(0xFFFFFF80, res);
+
+    TEST_ASSERT_FALSE(get_sign_extended_32("", &res));
+    TEST_ASSERT_FALSE(get_sign_extended_32(NULL, &res));
+    TEST_ASSERT_FALSE(get_sign_extended_32("102", &res));
+    TEST_ASSERT_FALSE(get_sign_extended_32("1", NULL));
+    
+    // 32-bits
+    TEST_ASSERT_FALSE(
+        get_zero_extended_32("111111111111111111111111111111111", &res)
+    );
+}
+
 void test_get_u_max(void) {
     uint32_t res = 0;
 
@@ -218,6 +279,8 @@ int main() {
     RUN_TEST(test_get_t_min);
     RUN_TEST(test_get_t_max);
     RUN_TEST(test_get_u_max);
+    RUN_TEST(test_get_sign_extended_32);
+    RUN_TEST(test_get_zero_extended_32);
     
     return UNITY_END();
 }
