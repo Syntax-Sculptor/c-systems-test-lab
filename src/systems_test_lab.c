@@ -6,6 +6,7 @@
 
 #include <string.h>
 #include <stdint.h>
+#include <stdlib.h>
 
 #include "systems_test_lab.h"
 
@@ -214,5 +215,21 @@ int get_truncated_value(const char* bin_str, size_t target_width, uint32_t* res)
 
     *res = mask & uval;
 
+    return 1;
+}
+
+int parse_width(const char* str, size_t* width) {
+    if (width == NULL || str == NULL) {
+        return 0;
+    }
+
+    char* endptr;
+    long int res = strtol(str, &endptr, 10);
+
+    if (endptr == str || *endptr != '\0' || res < 0) {
+        return 0;
+    }
+
+    *width = (size_t) res;
     return 1;
 }

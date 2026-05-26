@@ -305,6 +305,24 @@ void test_get_u_max(void) {
     TEST_ASSERT_FALSE(get_u_max(4, NULL));
 }
 
+void test_parse_width(void) {
+    size_t res = 0;
+
+    TEST_ASSERT_TRUE(parse_width("1", &res));
+    TEST_ASSERT_EQUAL_size_t(1, res);
+
+    TEST_ASSERT_TRUE(parse_width("25", &res));
+    TEST_ASSERT_EQUAL_size_t(25, res);
+
+    TEST_ASSERT_FALSE(parse_width("", &res));
+    TEST_ASSERT_FALSE(parse_width("a", &res));
+    TEST_ASSERT_FALSE(parse_width("4a", &res));
+    TEST_ASSERT_FALSE(parse_width("a4", &res));
+    TEST_ASSERT_FALSE(parse_width("-100", &res));
+    TEST_ASSERT_FALSE(parse_width(NULL, &res));
+    TEST_ASSERT_FALSE(parse_width("50", NULL));
+}
+
 int main() {
     UNITY_BEGIN();
     RUN_TEST(test_is_binary_str);
@@ -318,6 +336,7 @@ int main() {
     RUN_TEST(test_get_sign_extended_32);
     RUN_TEST(test_get_zero_extended_32);
     RUN_TEST(test_get_truncated_value);
+    RUN_TEST(test_parse_width);
     
     return UNITY_END();
 }

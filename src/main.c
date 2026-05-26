@@ -12,9 +12,16 @@
 #include "systems_test_lab.h"
 
 int main(int argc, char* argv[]) {
-    if (argc != 2) {
+    if (argc < 2) {
         printf("Usage: ./systems_test_lab <binary string>\n");
         return EXIT_FAILURE;
+    }
+
+    size_t trunc_width = 0;
+
+    if (argc >= 3 && !parse_width(argv[2], &trunc_width)) {
+        printf("Please enter a positive value for the truncation width!\n");
+        return EXIT_FAILURE;    
     }
 
     char* bin_str = argv[1];

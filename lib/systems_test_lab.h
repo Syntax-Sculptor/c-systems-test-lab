@@ -94,4 +94,12 @@ int get_sign_extended_32(const char* bin_str, uint32_t* res);
  */
 int get_truncated_value(const char* bin_str, size_t target_width, uint32_t* res);
 
+/**
+ * Attempts to parse a string into a width. This will not work for negative values
+ * or strings with a non-numerical character.
+ * 
+ * Returns whether the string was successfully parsed.
+ */
+int parse_width(const char* str, size_t* width);
+
 #endif
