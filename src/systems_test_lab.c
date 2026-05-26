@@ -174,3 +174,45 @@ int get_sign_extended_32(const char* bin_str, uint32_t* res) {
         return 1;
     }
 }
+
+int get_truncated_value(const char* bin_str, size_t target_width, uint32_t* res) {
+    if (
+        bin_str == NULL || 
+        res == NULL || 
+        !is_valid_width(target_width) || 
+        !is_binary_str(bin_str)
+    ) {
+        return 0;
+    }
+
+    size_t str_width = get_bit_width(bin_str);
+
+    if (target_width > str_width) {
+        return 0;
+    }
+
+    if (!is_valid_width(str_width)) {
+        return 0;
+    }
+
+    uint32_t uval;
+
+    if (!get_unsigned_value(bin_str, &uval)) {
+        return 0;
+    }
+
+    uint32_t mask;
+
+    if (target_width == 32) {
+        // If the width is at its maximum value, shifting it by 32 can cause
+        // undefined behavior. So we can just rely on the maximum uint32_t value.
+        mask = UINT32_MAX;
+    }
+    else {
+        mask = (1U << target_width) - 1;
+    }
+
+    *res = mask & uval;
+
+    return 1;
+}

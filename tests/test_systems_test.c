@@ -243,6 +243,42 @@ void test_get_sign_extended_32(void) {
     );
 }
 
+void test_get_truncated_value(void) {
+    uint32_t res = 0;
+
+    TEST_ASSERT_TRUE(get_truncated_value("101101", 4, &res));
+    TEST_ASSERT_EQUAL_UINT32(0X0000000D, res);
+
+    TEST_ASSERT_TRUE(get_truncated_value("11111111", 4, &res));
+    TEST_ASSERT_EQUAL_UINT32(0X0000000F, res);
+
+    TEST_ASSERT_TRUE(get_truncated_value("10000000", 4, &res));
+    TEST_ASSERT_EQUAL_UINT32(0X00000000, res);
+
+    TEST_ASSERT_TRUE(get_truncated_value("1010", 2, &res));
+    TEST_ASSERT_EQUAL_UINT32(0X00000002, res);
+
+    TEST_ASSERT_TRUE(get_truncated_value("1", 1, &res));
+    TEST_ASSERT_EQUAL_UINT32(0X00000001, res);
+
+    TEST_ASSERT_TRUE(
+        get_truncated_value("11111111111111111111111111111111", 32, &res)
+    );
+    TEST_ASSERT_EQUAL_UINT32(UINT32_MAX, res);
+
+    TEST_ASSERT_FALSE(get_truncated_value(NULL, 1, &res));
+    TEST_ASSERT_FALSE(get_truncated_value("1010", 1, NULL));
+    TEST_ASSERT_FALSE(get_truncated_value("", 1, &res));
+
+    // 33 bits, which is out of range.
+    TEST_ASSERT_FALSE(
+        get_truncated_value("111111111111111111111111111111111", 1, &res)
+    );
+
+    TEST_ASSERT_FALSE(get_truncated_value("1111", 5, &res));
+    TEST_ASSERT_FALSE(get_truncated_value("102", 1, &res));
+}
+
 void test_get_u_max(void) {
     uint32_t res = 0;
 
@@ -281,6 +317,7 @@ int main() {
     RUN_TEST(test_get_u_max);
     RUN_TEST(test_get_sign_extended_32);
     RUN_TEST(test_get_zero_extended_32);
+    RUN_TEST(test_get_truncated_value);
     
     return UNITY_END();
 }

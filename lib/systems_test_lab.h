@@ -87,4 +87,11 @@ int get_zero_extended_32(const char* bin_str, uint32_t* res);
  */
 int get_sign_extended_32(const char* bin_str, uint32_t* res);
 
+/**
+ * Truncates a 32-bit value and writes to the result.
+ * 
+ * Returns whether truncation was successful.
+ */
+int get_truncated_value(const char* bin_str, size_t target_width, uint32_t* res);
+
 #endif
