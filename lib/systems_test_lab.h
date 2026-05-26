@@ -78,13 +78,13 @@ int is_valid_width(size_t width);
  * 
  * Returns whether the result was written to.
  */
-int get_zero_extended_32(char* bin_str, uint32_t* res);
+int get_zero_extended_32(const char* bin_str, uint32_t* res);
 
 /**
  * Writes the 32-bit signed extension from the given binary string as an integer.
  * 
  * Returns whether the result was written to.
  */
-int get_sign_extended_32(char* bin_str, int32_t* res);
+int get_sign_extended_32(const char* bin_str, uint32_t* res);
 
 #endif

@@ -212,25 +212,25 @@ void test_get_zero_extended_32(void) {
 }
 
 void test_get_sign_extended_32(void) {
-    int32_t res = 0;
+    uint32_t res = 0;
 
     TEST_ASSERT_TRUE(get_sign_extended_32("0", &res));
-    TEST_ASSERT_EQUAL_INT32(0x00000000, res);
+    TEST_ASSERT_EQUAL_UINT32(0x00000000, res);
 
     TEST_ASSERT_TRUE(get_sign_extended_32("1", &res));
-    TEST_ASSERT_EQUAL_INT32(0xFFFFFFFF, res);
+    TEST_ASSERT_EQUAL_UINT32(0xFFFFFFFF, res);
 
     TEST_ASSERT_TRUE(get_sign_extended_32("01", &res));
-    TEST_ASSERT_EQUAL_INT32(0x00000001, res);
+    TEST_ASSERT_EQUAL_UINT32(0x00000001, res);
 
     TEST_ASSERT_TRUE(get_sign_extended_32("10", &res));
-    TEST_ASSERT_EQUAL_INT32(0xFFFFFFFE, res);
+    TEST_ASSERT_EQUAL_UINT32(0xFFFFFFFE, res);
 
     TEST_ASSERT_TRUE(get_sign_extended_32("1111", &res));
-    TEST_ASSERT_EQUAL_INT32(0xFFFFFFFF, res);
+    TEST_ASSERT_EQUAL_UINT32(0xFFFFFFFF, res);
 
     TEST_ASSERT_TRUE(get_sign_extended_32("10000000", &res));
-    TEST_ASSERT_EQUAL_INT32(0xFFFFFF80, res);
+    TEST_ASSERT_EQUAL_UINT32(0xFFFFFF80, res);
 
     TEST_ASSERT_FALSE(get_sign_extended_32("", &res));
     TEST_ASSERT_FALSE(get_sign_extended_32(NULL, &res));

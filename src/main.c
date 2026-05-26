@@ -48,13 +48,21 @@ int main(int argc, char* argv[]) {
     uint32_t u_max;
     get_u_max(width, &u_max);
 
-    printf("Bits:       %s\n", bin_str);
-    printf("Width:      %zu\n", width);
-    printf("Unsigned:   %u\n", unsigned_val);
-    printf("Signed:     %d\n", signed_val);
-    printf("TMin:       %d\n", t_min);
-    printf("TMax:       %d\n", t_max);
-    printf("UMax:       %u\n", u_max);
+    uint32_t zero_ext;
+    get_zero_extended_32(bin_str, &zero_ext);
+
+    uint32_t sign_ext;
+    get_sign_extended_32(bin_str, &sign_ext);
+
+    printf("Bits:                   %s\n", bin_str);
+    printf("Width:                  %zu\n", width);
+    printf("Unsigned:               %u\n", unsigned_val);
+    printf("Signed:                 %d\n", signed_val);
+    printf("TMin:                   %d\n", t_min);
+    printf("TMax:                   %d\n", t_max);
+    printf("UMax:                   %u\n", u_max);
+    printf("Zero-extended (32-bit): 0X%08x\n", zero_ext);
+    printf("Sign-extended (32-bit): 0X%08x\n", sign_ext);
 
     return EXIT_SUCCESS;
 }

@@ -138,10 +138,39 @@ int get_u_max(size_t width, uint32_t* val) {
     return 1;
 }
 
-int get_zero_extended_32(char* bin_str, uint32_t* res) {
-    return 0;
+int get_zero_extended_32(const char* bin_str, uint32_t* res) {
+    if (!is_binary_str(bin_str) || res == NULL) {
+        return 0;
+    }
+
+    // If we're doing zero-extension, we don't have to do anything special. Just
+    // using the unsigned value as-is works.
+    return get_unsigned_value(bin_str, res);
 }
 
-int get_sign_extended_32(char* bin_str, int32_t* res) {
-    return 0;
+int get_sign_extended_32(const char* bin_str, uint32_t* res) {
+    if (!is_binary_str(bin_str) || res == NULL) {
+        return 0;
+    }
+
+    size_t width = get_bit_width(bin_str);
+
+    if (!is_valid_width(width)) {
+        return 0;
+    }
+    
+    if (bin_str[0] == '0' || width == 32) {
+        return get_unsigned_value(bin_str, res);
+    }
+    else {
+        uint32_t uval;
+
+        if (!get_unsigned_value(bin_str, &uval)) {
+            return 0;
+        }
+
+        uint32_t mask = 0xFFFFFFFF << width;
+        *res = (uval | mask);
+        return 1;
+    }
 }
