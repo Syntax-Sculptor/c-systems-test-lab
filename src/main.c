@@ -12,16 +12,9 @@
 #include "systems_test_lab.h"
 
 int main(int argc, char* argv[]) {
-    if (argc < 2) {
-        printf("Usage: ./systems_test_lab <binary string>\n");
+    if (argc < 2 || argc > 3) {
+        printf("Usage: ./systems_test_lab <binary string> [truncate width]\n");
         return EXIT_FAILURE;
-    }
-
-    size_t trunc_width = 0;
-
-    if (argc >= 3 && !parse_width(argv[2], &trunc_width)) {
-        printf("Please enter a positive value for the truncation width!\n");
-        return EXIT_FAILURE;    
     }
 
     char* bin_str = argv[1];
@@ -68,8 +61,33 @@ int main(int argc, char* argv[]) {
     printf("TMin:                   %d\n", t_min);
     printf("TMax:                   %d\n", t_max);
     printf("UMax:                   %u\n", u_max);
-    printf("Zero-extended (32-bit): 0X%08x\n", zero_ext);
-    printf("Sign-extended (32-bit): 0X%08x\n", sign_ext);
+    printf("Zero-extended (32-bit): 0x%08x\n", zero_ext);
+    printf("Sign-extended (32-bit): 0x%08x\n", sign_ext);
+
+    // Optional truncation reporting.
+
+    if (argc < 3) {
+        return EXIT_SUCCESS;
+    }
+
+    size_t trunc_width;
+
+    if (!parse_width(argv[2], &trunc_width) || !is_valid_width(trunc_width)) {
+        printf("Please enter a positive value between 1 and 32 for the truncation width!\n");
+        return EXIT_FAILURE;    
+    }
+
+    uint32_t uval_trunc; 
+    
+    if (!get_truncated_value(bin_str, trunc_width, &uval_trunc)) {
+        printf("Failed to truncate value. Please ensure the truncation width is not greater than the binary string length.\n");
+        return EXIT_FAILURE;
+    }
+
+    printf("Truncated width:        %zu\n", trunc_width);
+    printf("Truncated unsigned:     %u\n", uval_trunc);
+    printf("Truncated hex (32-bit): 0x%08x\n", uval_trunc);
+  
 
     return EXIT_SUCCESS;
 }
